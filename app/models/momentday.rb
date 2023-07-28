@@ -1,0 +1,2 @@
+class Momentday < Stuff
+end

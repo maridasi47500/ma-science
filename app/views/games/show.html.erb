@@ -1,0 +1,64 @@
+<p style="color: green"><%= notice %></p>
+<div id="msg"></div>
+<%= render @game %>
+<%= render @game.circleobjects %>
+<%if @game.materials_images.length > 0 %>
+<%@x=@game.materials_images.shuffle%>
+<%@k=@game.materials_images.shuffle%>
+    <table>
+        <%@x.each_with_index do |h,i|%>
+            <tr>
+                    <td>
+                        
+                  <input type="radio" name="a" onchange="msg.innerHTML=(document.querySelector('[name=a]:checked').value === document.querySelector('[name=b]:checked').value ? ('OK') : '');" value="<%=h.id%>" />
+                  <%=render h.image%>
+                </td>
+                <td>
+                    <input type="radio" name="b" onchange="msg.innerHTML=(document.querySelector('[name=a]:checked').value === document.querySelector('[name=b]:checked').value ? ('OK') : '');" value="<%=@k[i].id%>" />
+                    <%=@k[i].material.name%>
+                </td>
+        </tr>
+        <%end%>
+</table>
+<%end%>
+<%@game.gamehaswords.each do |xx|%>
+<%[@game.content.split(".").select{|h|h.include?(xx.text)}.sample].each do |x|%>
+<p>
+<%x.split(xx.text).each_with_index do |a,i|%>
+<%if i==1%>
+<input type="text" name="azertyu" onkeyup="this.style.border = this.value === '<%=xx.text.strip.squish%>' ? '5px solid green' : '1px solid red'"/> (<%=xx.text.split("").shuffle.join%>)
+<%end%>
+<%=a%>
+
+<%end%>.
+</p>
+  <%end%>
+
+<%end%>
+
+<%if @game.mystuffhaspics.momentday.length > 0%>
+<p>
+écris dans les cases
+<%mystuffhaspics.momentday.uniq{|j|j.stuff_id}.map{|g|"#{g.stuff.name[0..2]} pour #{g.stuff.name}"}.to_sentence%>
+  </p>
+<%mystuffhaspics.momentday.to_a.uniq{|j|j.stuff_id}.each do |h|%>
+
+    <div>
+      <%=h.image.title%>
+      <img src="<%=h.image.image%>" id="img<%=h.id%>"/>
+      <input type="text" onkeyup="img<%=h.id%>.style.border = (this.value === '<%=h.stuff.name[0..2]%>' ? '5px solid green' : '5px solid red');"/>
+  
+</div>
+<%end%>
+<%end%>
+<div>
+  <%= link_to "Edit this game", edit_game_path(@game) %> |
+  <%= link_to "jouer à ce jeu comme pour entourer les objets", circleobjects_game_path(@game) %> |
+  <%= link_to "jouer à trouver des matériaux d'objets", materials_game_path(@game) %> |
+  <%= link_to "jouer à trouver les batteries des objets", battery_game_path(@game) %> |
+  <%= link_to "ajouter un mot à faire deviner", word_game_path(@game) %> |
+  <%= link_to "ajouter un moment de la journée à faire deviner", moment_game_path(@game) %> |
+  <%= link_to "Back to games", games_path %>
+
+  <%= button_to "Destroy this game", @game, method: :delete %>
+</div>

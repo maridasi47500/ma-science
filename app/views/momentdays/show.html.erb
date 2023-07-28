@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @momentday %>
+
+<div>
+  <%= link_to "Edit this momentday", edit_momentday_path(@momentday) %> |
+  <%= link_to "Back to momentdays", momentdays_path %>
+
+  <%= button_to "Destroy this momentday", @momentday, method: :delete %>
+</div>

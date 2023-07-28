@@ -1,0 +1,3 @@
+class Battery < Stuff
+  
+end

@@ -1,0 +1,47 @@
+<%= form_with(model: battery) do |form| %>
+  <% if battery.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(battery.errors.count, "error") %> prohibited this battery from being saved:</h2>
+
+      <ul>
+        <% battery.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :image, style: "display: block" %>
+    <%= form.file_field :image %>
+  </div>
+<p>chercher des trucs qui ont une <%=battery.name%></p>
+
+<div><%=form.collection_check_boxes :pic_ids, battery.pics, :id, :title%></div>
+<%=text_field_tag :azertyuiop, "", onkeyup: "myfunc(event);return false;",placeholder: "chercher ici"%>
+<div id="myimages"></div>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+<%=content_for :js do%>
+<script>
+  function myfunc(ev){
+    $.ajax({url: "/images.json?ok="+azertyuiop.value,
+    success:function(data){
+      var str="";
+      for(var i = 0;i<data.length;i++) {
+        str+="<input type=\"checkbox\" name=\"battery[pic_ids][]\" value=\""+String(data[i].id)+"\" /><label>"+String(data[i].title)+"</label>";
+      }
+      myimages.innerHTML=str;
+    }
+    });
+    return false;
+  }
+  </script>
+  <% end %>

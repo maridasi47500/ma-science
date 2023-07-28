@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @battery %>
+
+<div>
+  <%= link_to "Edit this battery", edit_battery_path(@battery) %> |
+  <%= link_to "Back to batteries", batteries_path %>
+
+  <%= button_to "Destroy this battery", @battery, method: :delete %>
+</div>

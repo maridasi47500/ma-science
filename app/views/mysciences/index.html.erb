@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Mysciences</h1>
+
+<div id="mysciences">
+  <% @mysciences.each do |myscience| %>
+    <%= render myscience %>
+    <p>
+      <%= link_to "Show this myscience", myscience %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New myscience", new_myscience_path %>

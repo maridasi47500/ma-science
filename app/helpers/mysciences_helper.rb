@@ -1,0 +1,2 @@
+module MysciencesHelper
+end

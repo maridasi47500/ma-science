@@ -1,0 +1,47 @@
+<%= form_with(model: material) do |form| %>
+  <% if material.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(material.errors.count, "error") %> prohibited this material from being saved:</h2>
+
+      <ul>
+        <% material.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :image, style: "display: block" %>
+    <%= form.file_field :image %>
+  </div>
+<p>chercher des trucs faits avec du <%=material.name%></p>
+
+<div><%=form.collection_check_boxes :image_ids, material.images, :id, :title%></div>
+<%=text_field_tag :azertyuiop, "", onkeyup: "myfunc(event);return false;",placeholder: "chercher ici"%>
+<div id="myimages"></div>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+<%=content_for :js do%>
+<script>
+  function myfunc(ev){
+    $.ajax({url: "/images.json?ok="+azertyuiop.value,
+    success:function(data){
+      var str="";
+      for(var i = 0;i<data.length;i++) {
+        str+="<input type=\"checkbox\" name=\"material[image_ids][]\" value=\""+String(data[i].id)+"\" /><label>"+String(data[i].title)+"</label>";
+      }
+      myimages.innerHTML=str;
+    }
+    });
+    return false;
+  }
+  </script>
+  <% end %>

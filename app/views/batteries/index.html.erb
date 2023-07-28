@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Batteries</h1>
+
+<div id="batteries">
+  <% @batteries.each do |battery| %>
+    <%= render battery %>
+    <p>
+      <%= link_to "Show this battery", battery %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New battery", new_battery_path %>

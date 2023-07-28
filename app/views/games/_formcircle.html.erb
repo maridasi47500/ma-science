@@ -1,0 +1,50 @@
+<%= form_with(model: game) do |form| %>
+  <% if game.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(game.errors.count, "error") %> prohibited this game from being saved:</h2>
+
+      <ul>
+        <% game.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<%if Image.all.length > 0%>
+
+  <%if game.pics.length == 0%>
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%=form.collection_check_boxes(:pic_ids, Image.all, :id, :title) do |b|%>
+      <%=b.label(class: "check_box") do%>
+      <%=b.check_box(class: "check_box")%>
+      <img src="/uploads/<%=b.object.image%>" style="width:100px;height:100px;"/>
+    <%end%>
+    <%end%>
+  </div>
+<%else%>
+  <p>should the users <%=game.description%> ?</p>
+  <%=form.fields_for :circleobjects do |f|%>
+    <div>
+      <img src="/uploads/<%=f.object.image.image%>" style="width:100px;height:100px;"/>
+        <table>
+        <tr>
+            <td><%= f.label 'a_flag_true', 'Oui' %></td>
+            <td><%= f.radio_button :mycond, true %></td>
+        </tr>
+
+        <tr>
+            <td><%= f.label 'a_flag_false', 'Non' %></td>
+            <td><%= f.radio_button :mycond, false %></td>
+        </tr>
+    </table>
+    </div>
+<%end%>
+<%end%>
+<%else%>
+  <p>ajouter des image</p>
+  <%end%>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

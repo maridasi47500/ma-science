@@ -1,0 +1,29 @@
+<%= form_with(model: game) do |form| %>
+  <% if game.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(game.errors.count, "error") %> prohibited this game from being saved:</h2>
+
+      <ul>
+        <% game.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<%if MaterialsImage.all.length > 0%>
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%=form.collection_check_boxes(:materials_image_ids, MaterialsImage.all, :id, :image_id) do |b|%>
+      <%=b.label(class: "check_box") do%>
+      <%=b.check_box(class: "check_box")%>
+      <%=render b.object%>
+    <%end%>
+    <%end%>
+  </div>
+<%else%>
+<p>ajouter des images et des matériaux que cette image a </p>
+<%end%>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

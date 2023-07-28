@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Science</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <nav>
+      <%=link_to "bienvenue", root_path%>
+      <%=link_to "voir toutes les images", images_path%>
+      <%=link_to "voir toutes les games", games_path%>
+      <%=link_to "voir tous les matériaux", materials_path%>
+      <%=link_to "voir toutes les sciences", mysciences_path%>
+      <%=link_to "voir toutes les piles", batteries_path%>
+      <%=link_to "voir toutes les moments de la journée", momentdays_path%>
+    </nav>
+    <%= yield %>
+     <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+     <%= yield :js %>
+  </body>
+</html>
