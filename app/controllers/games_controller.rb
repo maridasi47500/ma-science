@@ -14,7 +14,7 @@ def word
 end
   # GET /games/new
   def new
-    @game = Game.new
+    @game = Game.new(myscience_id: params[:myscience_id])
   end
 
   # GET /games/1/edit

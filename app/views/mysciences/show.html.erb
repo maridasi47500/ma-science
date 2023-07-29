@@ -1,9 +1,14 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @myscience %>
-
+<h3><%=  @myscience.title %></h3>
+<%if @myscience.games.length > 0%>
+<%=render @myscience.games%>
+<%else%>
+<p>aucun jeux ajoutés pour cette science</p>
+<%end%>
 <div>
   <%= link_to "Edit this myscience", edit_myscience_path(@myscience) %> |
+  <%= link_to "ajouter un jeu pour cette science", new_game_path(@myscience, myscience_id: @myscience.id) %> |
   <%= link_to "Back to mysciences", mysciences_path %>
 
   <%= button_to "Destroy this myscience", @myscience, method: :delete %>
