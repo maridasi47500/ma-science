@@ -1,0 +1,11 @@
+
+    <div>
+  
+        
+        <img id="myimg<%=crossortick.id%>" src="/uploads/<%=crossortick.image.image%>" />
+        
+        
+            <div style="font-size:30px;" data-ok="<%=crossortick.ok ? "1" : "0"%>" onclick="this.innerHTML=this.innerHTML==='☑' || this.innerHTML==='☐' ? '&#9746' : '&#9745;';myimg<%=crossortick.id%>.style.border = this.dataset.ok === '1' && this.innerHTML==='☑' || this.dataset.ok === '0' && this.innerHTML==='☒' ? '1px solid green' : '1px solid red';">
+          &#9744;
+        </div>
+</div>

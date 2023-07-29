@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :weathers
   resources :momentdays
   resources :batteries
   resources :materials 
@@ -6,7 +7,9 @@ Rails.application.routes.draw do
   resources :games do
     
     member do
+      get "stuff"
       get "battery"
+      get "tick"
       get "circleobjects"
       get "word"
       get "materials"

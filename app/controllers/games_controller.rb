@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: %i[ show edit update destroy circleobjects materials battery word moment ]
+  before_action :set_game, only: %i[ show edit update destroy circleobjects materials battery word moment tick stuff ]
 
   # GET /games or /games.json
   def index
@@ -45,12 +45,14 @@ end
         format.json { render :show, status: :ok, location: @game }
       else
         p @game.errors
+        p @game.errors.messages
         format.html { render @game.errors.messages.to_a[0][0], status: :unprocessable_entity }
         format.json { render json: @game.errors, status: :unprocessable_entity }
       end
     end
 
-  rescue
+  rescue => e
+        p "ERREUR", e.message
         p @game.errors
     render :edit
   end
@@ -73,6 +75,6 @@ end
 
     # Only allow a list of trusted parameters through.
     def game_params
-      params.require(:game).permit(:myscience_id, :title, :content, :description,:gamehaswords_attributes=>{},:circleobjects_attributes=>{},:pic_ids=>[],:materials_image_ids=>[],:mystuffhaspic_ids=>[])
+      params.require(:game).permit(:myscience_id, :title, :content, :description,:crossorticks_attributes=>{},:gamehaswords_attributes=>{},:circleobjects_attributes=>{},:pic_ids=>[],:materials_image_ids=>[],:mystuffhaspic_ids=>[],:stuff_ids=>[],:image_ids=>[])
     end
 end

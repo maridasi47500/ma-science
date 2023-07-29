@@ -2,6 +2,10 @@
 <div id="msg"></div>
 <%= render @game %>
 <%= render @game.circleobjects %>
+<%= render @game.crossorticks %>
+<%if @game.crossorticks.length > 0%>
+<p>tick or cross the box under the pic</p>
+<%end%>
 <%if @game.materials_images.length > 0 %>
 <%@x=@game.materials_images.shuffle%>
 <%@k=@game.materials_images.shuffle%>
@@ -16,6 +20,48 @@
                 <td>
                     <input type="radio" name="b" onchange="msg.innerHTML=(document.querySelector('[name=a]:checked').value === document.querySelector('[name=b]:checked').value ? ('OK') : '');" value="<%=@k[i].id%>" />
                     <%=@k[i].material.name%>
+                </td>
+        </tr>
+        <%end%>
+</table>
+<%end%>
+<%if @game.stuffs.length > 0 %>
+<%@x=@game.stuffs.shuffle%>
+<%@k=@game.stuffs.shuffle%>
+    <table>
+        <%@x.each_with_index do |h,i|%>
+            <tr>
+                    <td>
+                        
+                  <input type="radio" name="a" onchange="$('[name=a], [name=b]').parent().attr('style','border:0px solid black;');$('[name=a]:checked, [name=b]:checked').parent().attr('style','border:'+(document.querySelector('[name=a]:checked').value === document.querySelector('[name=b]:checked').value ? ('1px solid green;') : '1px solid red;'));" onfocusout="this.parentElement.style.border='0px solid';" onblur="this.parentElement.style.border='0px solid';" value="<%=h.id%>" />
+                  <img src="/uploads/<%= h.image%>" />
+                 
+                </td>
+                <td>
+                    <input type="radio" name="b" onchange="$('[name=a], [name=b]').parent().attr('style','border:0px solid black;');$('[name=a]:checked, [name=b]:checked').parent().attr('style','border:'+(document.querySelector('[name=a]:checked').value === document.querySelector('[name=b]:checked').value ? ('1px solid green;') : '1px solid red;'));" onfocusout="this.parentElement.style.border='0px';" onblur="this.parentElement.style.border='0px solid';" value="<%=@k[i].id%>" />
+                  
+                    <%=@k[i].name%>
+                </td>
+        </tr>
+        <%end%>
+</table>
+<%end%>
+<%if @game.mystuffhaspics.batery.length > 0 %>
+<%@x=@game.mystuffhaspics.batery.shuffle%>
+<%@k=@game.mystuffhaspics.batery.shuffle%>
+    <table>
+        <%@x.each_with_index do |h,i|%>
+            <tr>
+                    <td>
+                        
+                  <input type="radio" name="a" onchange="msg.innerHTML=(document.querySelector('[name=a]:checked').value === document.querySelector('[name=b]:checked').value ? ('OK') : '');" value="<%=h.id%>" />
+                  <img src="/uploads/<%= h.image.image%>" />
+                  <%= h.image.title%>
+                </td>
+                <td>
+                    <input type="radio" name="b" onchange="msg.innerHTML=(document.querySelector('[name=a]:checked').value === document.querySelector('[name=b]:checked').value ? ('OK') : '');" value="<%=@k[i].id%>" />
+                    <img src="/uploads/<%=@k[i].stuff.image%>" />
+                    <%=@k[i].stuff.name%>
                 </td>
         </tr>
         <%end%>
@@ -39,13 +85,13 @@
 <%if @game.mystuffhaspics.momentday.length > 0%>
 <p>
 écris dans les cases
-<%mystuffhaspics.momentday.uniq{|j|j.stuff_id}.map{|g|"#{g.stuff.name[0..2]} pour #{g.stuff.name}"}.to_sentence%>
+<%=@game.mystuffhaspics.momentday.uniq{|j|j.stuff_id}.map{|g|"#{g.stuff.name[0..2]} pour #{g.stuff.name}"}.to_sentence%>
   </p>
-<%mystuffhaspics.momentday.to_a.uniq{|j|j.stuff_id}.each do |h|%>
+<%@game.mystuffhaspics.momentday.to_a.uniq{|j|j.stuff_id}.each do |h|%>
 
     <div>
       <%=h.image.title%>
-      <img src="<%=h.image.image%>" id="img<%=h.id%>"/>
+      <img src="/uploads/<%=h.image.image%>" id="img<%=h.id%>"/>
       <input type="text" onkeyup="img<%=h.id%>.style.border = (this.value === '<%=h.stuff.name[0..2]%>' ? '5px solid green' : '5px solid red');"/>
   
 </div>
@@ -58,6 +104,8 @@
   <%= link_to "jouer à trouver les batteries des objets", battery_game_path(@game) %> |
   <%= link_to "ajouter un mot à faire deviner", word_game_path(@game) %> |
   <%= link_to "ajouter un moment de la journée à faire deviner", moment_game_path(@game) %> |
+  <%= link_to "ajouter des choses à associer l'image et le mot", stuff_game_path(@game) %> |
+  <%= link_to "dire si une action est bonne ou mauvaise", tick_game_path(@game) %> |
   <%= link_to "Back to games", games_path %>
 
   <%= button_to "Destroy this game", @game, method: :delete %>

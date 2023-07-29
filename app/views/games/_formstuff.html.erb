@@ -10,10 +10,10 @@
       </ul>
     </div>
   <% end %>
-<%if Mystuffhaspic.batery.length > 0%>
+<%if Stuff.all.length > 0%>
   <div>
     <%= form.label :description, style: "display: block" %>
-    <%=form.collection_check_boxes(:mystuffhaspic_ids, Mystuffhaspic.batery, :myid, :myid) do |b|%>
+    <%=form.collection_check_boxes(:stuff_ids, Stuff.all, :id, :id) do |b|%>
       <%=b.label(class: "check_box") do%>
       <%=b.check_box(class: "check_box")%>
       <%=render b.object%>
@@ -21,7 +21,7 @@
     <%end%>
   </div>
 <%else%>
-<p>ajouter des batteries et des objets avec cette batterie</p>
+<p>ajouter des choses, materiaux, temps , moment de la journée</p>
 <%end%>
   <div>
     <%= form.submit %>

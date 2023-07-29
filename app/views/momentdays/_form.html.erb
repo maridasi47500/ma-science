@@ -22,7 +22,7 @@
   </div>
 <p>chercher des trucs qu'on fait  <%=momentday.name%></p>
 
-<div><%=form.collection_check_boxes :pic_ids, momentday.pics, :id, :title%></div>
+<div><%=form.collection_check_boxes :pic_ids, momentday.pics, :title, :id%></div>
 <%=text_field_tag :azertyuiop, "", onkeyup: "myfunc(event);return false;",placeholder: "chercher ici"%>
 <div id="myimages"></div>
   <div>

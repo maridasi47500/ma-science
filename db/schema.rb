@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_28_222939) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_29_215010) do
   create_table "batteries", force: :cascade do |t|
     t.string "name"
     t.string "image"
@@ -26,9 +26,31 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_28_222939) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "crossorticks", force: :cascade do |t|
+    t.integer "game_id"
+    t.integer "image_id"
+    t.boolean "ok"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "gamehasmaterials", force: :cascade do |t|
     t.integer "game_id"
     t.integer "materials_image_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "gamehasstuffhaspics", force: :cascade do |t|
+    t.integer "game_id"
+    t.integer "mystuffhaspic_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "gamehastuffs", force: :cascade do |t|
+    t.integer "game_id"
+    t.integer "stuff_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

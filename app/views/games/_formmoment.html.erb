@@ -13,7 +13,7 @@
 <%if Mystuffhaspic.momentday.length > 0%>
   <div>
     <%= form.label :description, style: "display: block" %>
-    <%=form.collection_check_boxes(:mystuffhaspic_ids, Mystuffhaspic.momentday, :image_id, :id) do |b|%>
+    <%=form.collection_check_boxes(:mystuffhaspic_ids, Mystuffhaspic.momentday, :myid, :myid) do |b|%>
       <%=b.label(class: "check_box") do%>
       <%=b.check_box(class: "check_box")%>
       <%=render b.object%>

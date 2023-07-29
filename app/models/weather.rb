@@ -1,0 +1,2 @@
+class Weather < Stuff
+end
